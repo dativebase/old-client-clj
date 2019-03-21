@@ -1,5 +1,6 @@
 (ns old-client.print
-  (:require [clojure.string :as string]))
+  (:require [clojure.string :as string]
+            [clojure.pprint :as pprint]))
 
 ;; Vector of 2/3-tuple vectors consisting of:
 ;; - the keyword attribute of a form,
@@ -45,3 +46,8 @@
   "Pretty print an OLD form to the terminal."
   [form]
   (println (pformat form)))
+
+(defn print-resource
+  [resource rsrc-kw]
+  (({:form print-form} rsrc-kw pprint/pprint) resource))
+

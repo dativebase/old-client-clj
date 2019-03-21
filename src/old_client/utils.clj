@@ -1,6 +1,6 @@
 (ns old-client.utils
   (:require [clojure.string :as string]
-            [cheshire.core :refer [generate-string]]))
+            [cheshire.core :refer [generate-string parse-string]]))
 
 (defn l-strip
   "Left-strip pfx from s"
@@ -16,5 +16,7 @@
     (r-strip sfx (apply str (take (- (count s) (count sfx)) s)))
     s))
 
-(defn json-stringify [thing] (generate-string thing))
+(defn json-stringify [thing] (generate-string thing {:key-fn name}))
+
+(defn json-parse [thing] (parse-string thing true))
 

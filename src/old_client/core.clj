@@ -32,15 +32,16 @@
   ([old-client method path body-map]
    (issue-request old-client method path body-map {}))
   ([old-client method path body-map query-params]
-   (:body ((get-request-func method)
-    (path-to-url old-client path)
-    {:body (json-stringify body-map)
-     :query-params query-params
-     :content-type :json
-     :accept :json
-     :as :json
-     :throw-entire-message? true
-     :cookie-store (:cookie-store old-client)}))))
+   (let [url (path-to-url old-client path)]
+     (:body ((get-request-func method)
+             (path-to-url old-client path)
+             {:body (json-stringify body-map)
+              :query-params query-params
+              :content-type :json
+              :accept :json
+              :as :json
+              :throw-entire-message? true
+              :cookie-store (:cookie-store old-client)})))))
 
 (defrecord OLDClient
   [url
